@@ -45,7 +45,7 @@ function Calender() {
         setShowEventPopup(true);
         setShowModal(true);
         setEventText("");
-        setEventTime({ hours: '00', minutes: '00' });
+        setEventTime({ hours: '', minutes: '' });
         setEditingEvent(null)
         setShowAllEvent(false)
       }
@@ -77,7 +77,7 @@ function Calender() {
   setEvents(updatedEvents);
   setEventTitle("");
   setEventText("");
-  setEventTime({ hours: "00", minutes: "00" });
+  setEventTime({ hours: "", minutes: "" });
   setShowEventPopup(false);
   setEditingEvent(null);
 };
@@ -154,6 +154,8 @@ function Calender() {
                 name="hours"
                 min={0}
                 max={24}
+                placeholder="00"
+
                 className="hours"
                 value={eventTime.hours}
                 onChange={(e) => {handleTimeChange(e);}}
@@ -168,6 +170,7 @@ function Calender() {
                 min={0}
                 max={60}
                 className="minutes"
+                placeholder="00"
                 value={eventTime.minutes}
                 onChange={(e) => handleTimeChange(e)}
               />
