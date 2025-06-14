@@ -226,13 +226,13 @@ function Calender() {
               <div className="event-date">{event.date}</div>
               <div className="event-time">{event.time}</div>
             </div>
-            <div className="event-text">
+            <div className="event-text text">
                 <div className="event-heading">{event.title}</div>
             <div className="description">{event.text}</div></div>
             
             <div className="event-buttons">
               <i className="bx bxs-edit-alt" onClick={()=>handleEditEvent(index)}></i>
-              <i className="bx bx-x" onClick={()=>handleDalete(index)}></i>
+              <i className="bx bx-x" onClick={()=>handleDalete(index)} ></i>
             </div>
           </div>
             ))}

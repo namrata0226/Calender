@@ -237,8 +237,9 @@ margin: 3rem 0;
     border-radius: 1rem;
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.9rem;
     position: relative;
+
 }
 .event-date-wrapper{
     width: 25%;
