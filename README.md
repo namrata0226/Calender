@@ -1,5 +1,36 @@
 # React + Vite
 
+# 📅 React Calendar App
+
+This is a simple and interactive Calendar Application built with React. It allows users to:
+
+- View a month-wise calendar.
+- Add, edit, and delete events on any specific date.
+- View saved events for each day.
+- Persist data using `localStorage`.
+
+## 🚀 Features
+
+- Responsive calendar layout.
+- Event time and description support.
+- Inline event editing.
+- Data saved locally in browser.
+
+## 🛠️ Tech Stack
+
+- React
+- JavaScript (ES6+)
+- HTML/CSS
+- LocalStorage
+- Boxicons (for icons)
+
+## 📦 Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/calendar-app.git
+   cd calendar-app
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
