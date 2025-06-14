@@ -1,10 +1,10 @@
 import React from 'react'
-import Calender from './components/Calender'
+import Cal from './components/Calender'
 
 function App() {
   return (
     
-    <Calender/>
+    <Cal/>
     
   )
 }
