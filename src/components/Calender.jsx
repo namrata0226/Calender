@@ -9,6 +9,7 @@ function Calender() {
     const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
     const[selectedDate, setSelectedDate] = useState(currentDate.getDate());
      const [showModal, setShowModal] = useState(false);
+      const[allEvent,setAllEvent]=useState(true);
     const[showEventPopup, setShowEventPopup] = useState(false);
     const[events, setEvents] = useState(() => {
   const stored = localStorage.getItem("calendarEvents");
@@ -46,6 +47,7 @@ function Calender() {
         setEventText("");
         setEventTime({ hours: '00', minutes: '00' });
         setEditingEvent(null)
+        setAllEvent(false)
       }
     };
     const handleEventSubmit = () => {
@@ -191,11 +193,12 @@ function Calender() {
             .filter(event => event.date === `${selectedDate}-${currentMonth + 1}-${currentYear}`)
             .map((event, idx) => (
               <li key={idx} className="event" >
-              <div className="event-date-wraper">  
+              <div className="event-date-wrapper">  
    <div className="event-time">{event.time}</div>
      </div>
 <div className="event-text">
-                <div className="  event-heading">{event.title}</div>
+                <div className=" event-heading">{event.title}</div>
+                 <div className="description">{event.text}</div>
                 </div>
               
               </li>
@@ -203,33 +206,37 @@ function Calender() {
         </ul>
 
       ) : (
-        <p className="event">No events for this day</p>
-      )}
-      
-       <button className="close-event">
-              <i className="bx bx-x" onClick={() => setShowModal(false)}></i>
-            </button>
+        <p className="event no-event">No events for this day</p>
+      )} 
+        <i className='button bx bx-x' onClick={()=> { setShowModal(false);
+            setAllEvent(true)}}></i>
+   
     </div>
   
   </div>
 )}
-          {
-            events.map((event,index)=>(
+          {allEvent &&
+          <div>
+            <h2 className="event-para"> All Events</h2>
+             {events.map((event,index)=>(
+
 <div className="event" key={index}>
+   
             <div className="event-date-wrapper">
               <div className="event-date">{event.date}</div>
               <div className="event-time">{event.time}</div>
             </div>
             <div className="event-text">
-                <div className="  event-heading">{event.title}</div>
-            <div className=" description">{event.text}</div></div>
+                <div className="event-heading">{event.title}</div>
+            <div className="description">{event.text}</div></div>
             
             <div className="event-buttons">
               <i className="bx bxs-edit-alt" onClick={()=>handleEditEvent(index)}></i>
               <i className="bx bx-x" onClick={()=>handleDalete(index)}></i>
             </div>
           </div>
-            ))
+            ))}
+            </div>
           }
        
           

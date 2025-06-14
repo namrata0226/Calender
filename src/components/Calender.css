@@ -282,14 +282,29 @@ margin: 3rem 0;
     color: #fff;
     cursor: pointer;
 }
-.modal-content{
+.modal-content , .event-para{
     color: #fff;
     padding: 5px;
 }
-modal-backdrop{
-    padding : 5px
+.modal-backdrop{
+    position: relative;
 }
+.no-event{
+     padding: 0 10px;
+     font-size: medium ;
 
+}
+.button{
+     position: absolute;
+    top: 0rem;
+    right: 1rem;
+
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-size: medium;
+    font-weight: bolder ;
+}
 @media(max-width:850px){
     .calender-app{
         flex-direction: column;
