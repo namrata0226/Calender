@@ -9,7 +9,7 @@ function Calender() {
     const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
     const[selectedDate, setSelectedDate] = useState(currentDate.getDate());
      const [showModal, setShowModal] = useState(false);
-      const[allEvent,setAllEvent]=useState(true);
+      const[showAllEvent,setShowAllEvent]=useState(true);
     const[showEventPopup, setShowEventPopup] = useState(false);
     const[events, setEvents] = useState(() => {
   const stored = localStorage.getItem("calendarEvents");
@@ -47,7 +47,7 @@ function Calender() {
         setEventText("");
         setEventTime({ hours: '00', minutes: '00' });
         setEditingEvent(null)
-        setAllEvent(false)
+        setShowAllEvent(false)
       }
     };
     const handleEventSubmit = () => {
@@ -209,15 +209,15 @@ function Calender() {
         <p className="event no-event">No events for this day</p>
       )} 
         <i className='button bx bx-x' onClick={()=> { setShowModal(false);
-            setAllEvent(true)}}></i>
+            setShowAllEvent(true)}}></i>
    
     </div>
   
   </div>
 )}
-          {allEvent &&
+          {showAllEvent &&
           <div>
-            <h2 className="event-para"> All Events</h2>
+          
              {events.map((event,index)=>(
 
 <div className="event" key={index}>
