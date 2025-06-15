@@ -1,17 +1,28 @@
 // src/components/Calendar/Calendar.jsx
 import React, { useState, useEffect } from "react";
-import CalendarHeader from "./CalendarHeader";
+import CalendarHeader from "./CalenderHeader";
+
 import DaysGrid from "./DaysGrid";
 import EventPopup from "./EventPopup";
 import EventList from "./EventList";
 import DayEvent from "./DayEvent";
-import "./Calendar.css";
+import "./Calender.css";
 
 function Calendar() {
   const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
   const monthsOfYear = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const currentDate = new Date();
@@ -26,7 +37,7 @@ function Calendar() {
     return stored ? JSON.parse(stored) : [];
   });
 
-  const [eventTime, setEventTime] = useState({ hours: '', minutes: '' });
+  const [eventTime, setEventTime] = useState({ hours: "", minutes: "" });
   const [eventTitle, setEventTitle] = useState("");
   const [eventText, setEventText] = useState("");
   const [editingEvent, setEditingEvent] = useState(null);
@@ -39,20 +50,19 @@ function Calendar() {
   }, [events]);
 
   const prevMonth = () => {
-    setCurrentMonth(prev => (prev === 0 ? 11 : prev - 1));
-    setCurrentYear(prev => (currentMonth === 0 ? prev - 1 : prev));
+    setCurrentMonth((prev) => (prev === 0 ? 11 : prev - 1));
+    setCurrentYear((prev) => (currentMonth === 0 ? prev - 1 : prev));
   };
 
   const nextMonth = () => {
-    setCurrentMonth(prev => (prev === 11 ? 0 : prev + 1));
-    setCurrentYear(prev => (currentMonth === 11 ? prev + 1 : prev));
+    setCurrentMonth((prev) => (prev === 11 ? 0 : prev + 1));
+    setCurrentYear((prev) => (currentMonth === 11 ? prev + 1 : prev));
   };
 
-  const isSameDay = (d1, d2) => (
+  const isSameDay = (d1, d2) =>
     d1.getDate() === d2.getDate() &&
     d1.getMonth() === d2.getMonth() &&
-    d1.getFullYear() === d2.getFullYear()
-  );
+    d1.getFullYear() === d2.getFullYear();
 
   const handleDateClick = (day) => {
     const clicked = new Date(currentYear, currentMonth, day);
@@ -62,7 +72,7 @@ function Calendar() {
       setShowEventPopup(true);
       setShowModal(true);
       setEventText("");
-      setEventTime({ hours: '', minutes: '' });
+      setEventTime({ hours: "", minutes: "" });
       setEditingEvent(null);
       setShowAllEvent(false);
     }
@@ -75,12 +85,20 @@ function Calendar() {
       date: formattedDate,
       title: eventTitle,
       text: eventText,
-      time: `${eventTime.hours.padStart(2, "0")}:${eventTime.minutes.padStart(2, "0")}`,
+      time: `${eventTime.hours.padStart(2, "0")}:${eventTime.minutes.padStart(
+        2,
+        "0"
+      )}`,
     };
 
-    const updated = editingEvent !== null
-      ? [...events.slice(0, editingEvent), newEvent, ...events.slice(editingEvent)]
-      : [...events, newEvent];
+    const updated =
+      editingEvent !== null
+        ? [
+            ...events.slice(0, editingEvent),
+            newEvent,
+            ...events.slice(editingEvent),
+          ]
+        : [...events, newEvent];
 
     setEvents(updated);
     setEventTitle("");
@@ -95,17 +113,20 @@ function Calendar() {
     const [day, month, year] = ev.date.split("-").map(Number);
     setEventTitle(ev.title);
     setEventText(ev.text);
-    setEventTime({ hours: ev.time.split(":")[0], minutes: ev.time.split(":")[1] });
+    setEventTime({
+      hours: ev.time.split(":")[0],
+      minutes: ev.time.split(":")[1],
+    });
     setSelectedDate(day);
     setCurrentMonth(month - 1);
     setCurrentYear(year);
     setEditingEvent(index);
-    setEvents(prev => prev.filter((_, i) => i !== index));
+    setEvents((prev) => prev.filter((_, i) => i !== index));
     setShowEventPopup(true);
   };
 
   const handleDeleteEvent = (index) => {
-    setEvents(prev => prev.filter((_, i) => i !== index));
+    setEvents((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
