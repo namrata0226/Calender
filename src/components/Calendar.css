@@ -1,4 +1,4 @@
-.calender-app{
+.calendar-app{
     width: 60%;
     min-width: 90vmin;
     aspect-ratio: 3/2;
@@ -13,7 +13,7 @@ position: relative;
 transform-style: preserve-3d ;
 /* overflow: hidden; */
 }
-.calender-app::after{
+.calendar-app::after{
     content: '';
     position: absolute;
     bottom:-12rem;
@@ -25,7 +25,7 @@ transform-style: preserve-3d ;
     border-radius: 2rem;
     filter: blur(4rem);
 }
-.calender{
+.calendar{
     width: 40%;
 }
 .heading{
@@ -319,12 +319,12 @@ margin: 3rem 0;
     font-weight: bolder ;
 }
 @media(max-width:850px){
-    .calender-app{
+    .calendar-app{
         flex-direction: column;
         row-gap: 2rem;
         aspect-ratio: 3/2;
     }
-    .calender{
+    .calendar{
         width: 70%;
         margin: auto;
     }
@@ -381,10 +381,10 @@ margin: 3rem 0;
     }
 }
 @media(max-width:500px) {
-    .calender{
+    .calendar{
         aspect-ratio:10/9 ;
     }
-    .calender{
+    .calendar{
         width: 100%;
     }
     .event-popup{
@@ -396,7 +396,7 @@ margin: 3rem 0;
 }
 }
 @media (max-width:375px) {
-    .calender-app{
+    .calendar-app{
         aspect-ratio: 3/2;
     }
     .event-popup{

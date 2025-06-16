@@ -1,6 +1,6 @@
 import React ,{useState, useEffect}from "react";
-import "./Calender.css";
-function Calender() {
+import "./Calendar.css";
+function Calendar() {
   const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
   const monthsOfYear = ["January","February","March","April","May","June","July","August","September","October", "November", "December",
   ];
@@ -133,9 +133,9 @@ setCalendar((prev)=>({...prev, selectedDate:day}))
 }, [events]);
   return (
     <>
-      <div className="calender-app">
-        <div className="calender">
-          <h1 className="heading">Calender</h1>
+      <div className="calendar-app">
+        <div className="calendar">
+          <h1 className="heading">Calendar</h1>
           <div className="navigate-date">
             <h2 className="month">{monthsOfYear[calendar.month]}</h2>
             <h2 className="year">{calendar.year}</h2>
@@ -264,4 +264,4 @@ setCalendar((prev)=>({...prev, selectedDate:day}))
   );
 }
 
-export default Calender;
+export default Calendar;
