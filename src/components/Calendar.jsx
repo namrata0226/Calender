@@ -56,43 +56,41 @@ const [calendar, setCalendar] = useState({
       const clickedDate = new Date(calendar.year, calendar.month, day);
       const today = new Date();
       if (clickedDate >= today || isSameday(clickedDate, today)) {
-        // setSelectedDate(day);
 setCalendar((prev)=>({...prev, selectedDate:day}))
         setUI({ showModal: true, showAllEvent: false, showEventPopup: true });
          setEventData({ title: '', text: '', time: { hours: '', minutes: '' }, editingIndex: null });
        
       }
     };
-    const handleEventSubmit = () => {
+
+
+const handleEventSubmit = () => {
   if (!eventData.title.trim()) {
     alert("Event Title is required.");
     return;
   }
 
   const formattedDate = `${calendar.selectedDate}-${calendar.month + 1}-${calendar.year}`;
-
   const newEvent = {
     date: formattedDate,
     title: eventData.title,
     text: eventData.text,
     time: `${(eventData.time.hours || '00').padStart(2, "0")}:${(eventData.time.minutes || '00').padStart(2, "0")}`
-
   };
 
-  let updatedEvents;
+  const updatedEvents = [...events];
 
-  if (eventData.editingEvent !== null) {
-    updatedEvents = [...events];
-    updatedEvents.splice(eventData.editingEvent, 0, newEvent);
+  if (eventData.editingIndex !== null) {
+    updatedEvents[eventData.editingIndex] = newEvent; 
   } else {
-    updatedEvents = [...events, newEvent];
+    updatedEvents.push(newEvent);
   }
 
   setEvents(updatedEvents);
- 
   setEventData({ title: '', text: '', time: { hours: '', minutes: '' }, editingIndex: null });
-  setUI({ showModal: true, showAllEvent: false, showEventPopup: false });
+  setUI(prev=>({ ...prev, showEventPopup: false }));
 };
+
 
    
     const isSameday=(day1, day2)=>{
@@ -100,28 +98,31 @@ setCalendar((prev)=>({...prev, selectedDate:day}))
               day1.getMonth() === day2.getMonth() &&
               day1.getFullYear() === day2.getFullYear());
     }
-   const handleEditEvent = (index) => {
+  const handleEditEvent = (index) => {
   const event = events[index];
   const [day, month, year] = event.date.split("-");
-   setEventData({
-      title: event.title,
-      text: event.text,
-      time: {
-        hours: event.time.split(":")[0],
-        minutes: event.time.split(":")[1],
-      },
-      editingIndex: index
-    });
-  // setSelectedDate(parseInt(day));
-  setCalendar({selectedDate:parseInt(day),month:parseInt(month), year:parseInt(year)})
 
-  const updatedEvents = [...events];
-  updatedEvents.splice(index, 1);
-  setEvents(updatedEvents);
-  setUI((prev)=>({...prev,showEventPopup:true }))
-  // setUI({ showModal: false, showAllEvent: true, showEventPopup: true });
+  setEventData({
+    title: event.title,
+    text: event.text,
+    time: {
+      hours: event.time.split(":")[0],
+      minutes: event.time.split(":")[1],
+    },
+    editingIndex: index, 
+  });
 
+  setCalendar({
+    selectedDate: parseInt(day),
+    month: parseInt(month) - 1,
+    year: parseInt(year),
+  });
+
+  setUI((prev)=>({...prev, showEventPopup:true}));
+
+  
 };
+
 
     const handleDalete=(index)=>{
  const updatedEvents = [...events];
@@ -219,7 +220,10 @@ setCalendar((prev)=>({...prev, selectedDate:day}))
                 <div className=" event-heading">{event.title}</div>
                  <div className="description">{event.text}</div>
                 </div>
-              
+               <div className="event-buttons">
+              <i className="bx bxs-edit-alt" onClick={()=>handleEditEvent(idx)}></i>
+              <i className="bx bx-x" onClick={()=>handleDalete(idx)} ></i>
+            </div>
               </li>
           ))}
         </ul>
