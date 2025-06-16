@@ -30,7 +30,7 @@ transform-style: preserve-3d ;
 }
 .heading{
     font-family:"Bebas Neue", sans-serif;
-    font-size: clamp(4rem, 3.8vw, 7rem);
+    font-size: 4rem;
     color: #fff;
     letter-spacing: 0.3rem;
     padding-left: 1.2rem;
@@ -44,7 +44,7 @@ transform-style: preserve-3d ;
 }
 .navigate-date h2{
   padding-left: 1.2rem;
-    font-size: clamp(1.5rem, 1.5vw, 2.5rem);
+    font-size:1.5rem ;
     color: #bbb;
    
 }
@@ -74,7 +74,7 @@ margin: 3rem 0;
 }
 .weekdays span{
    width: calc(100% / 7);
-    font-size: clamp(1rem, 0.8cqi, 1.3rem);
+    font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
     color: #78879e;
@@ -88,7 +88,7 @@ margin: 3rem 0;
    
 }
 .days span{
-    font-size: clamp(1.2rem, 1cqi, 1.6rem);
+    font-size: 1rem;
     width: calc(100% / 7);
     aspect-ratio: 1;
     display: flex;
@@ -116,10 +116,10 @@ margin: 3rem 0;
 }
 .event-popup{
     position: absolute;
-    top: 40%;
-    left: 4rem;
+    top: 43%;
+    left: 2rem;
     background-color: #161b22;
-    width: clamp(30rem, 21cqi, 40rem);
+    width: 25rem ;
     aspect-ratio: 12/9;
     border-radius: 1rem;
     box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
@@ -127,7 +127,8 @@ margin: 3rem 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 1rem;
+    row-gap: 0.6rem;
+    padding: 2rem 0;
     
 }
 .time-input{
@@ -135,11 +136,11 @@ margin: 3rem 0;
     column-gap: 1rem;
 }
 .event-popup-time{
-    width: clamp(4rem, 4cqi, 7rem);
+    width: 4rem ;
     background-color: #00a3ff;
     color: #fff;
     font-family: "Bebas Neue", sans-serif;
-    font-size: clamp(1.5rem, 1.5cqi, 2.2rem);
+    font-size: 1.5rem ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,17 +165,17 @@ margin: 3rem 0;
    border-top: 0.2rem solid #00a3ff;
    border-bottom: 0.2rem solid #00a3ff;
    color: #fff;
-   width: clamp(4rem, 4cqi, 7rem);
+   width: 4rem;
    height: 2rem;
    text-align: center;
-   font-size: clamp(1.2rem, 1.2cqi, 1.6rem);
+   font-size: 1.6rem;
 }
 .time-input input[type="number"]::-webkit-outer-spin-button,
 .time-input input[type="number"]::-webkit-inner-spin-button {
     appearance: none;   
 }
  .event-title-input{
-    width: clamp(15rem, 15cqi, 25rem);
+    width: 15rem;
     
     background-color: #0f1319;
     color: #78879e;
@@ -188,7 +189,7 @@ margin: 3rem 0;
     border: 0.1rem solid #00a3ff;
 }
 .event-popup textarea{
-    width: clamp(15rem, 15cqi, 25rem);
+    width: 15rem;
     aspect-ratio: 5/2;
       resize: none;
     height: 7rem;
@@ -204,18 +205,18 @@ margin: 3rem 0;
     border: 0.1rem solid #00a3ff;
 }
 .event-popup textarea::placeholder,.event-title-input::placeholder {
-    font-size: clamp(1rem, 0.8cqi, 1.2rem);
+    font-size: 1rem;
     color: #78879e;
 }.event-popup textarea:focus::placeholder{
     color:transparent;
 }
 .event-popup-btn{
-    width: clamp(15rem, 15cqi, 25rem);
+    width:15rem;
     height: 4rem;
     background-color: #ef9011;
     color: #fff;
     font-family: "Bebas Neue", sans-serif;
-    font-size: clamp(1.5rem, 1.5cqi, 2.2rem);
+    font-size: 1.5rem;
    letter-spacing: .1rem;
    border: none;
     border-radius: 0.5rem;
@@ -260,19 +261,19 @@ margin: 3rem 0;
     border-right: 0.1rem solid rgba(255,255,255,0.5);
 }
 .event-date{
-    font-size: clamp(1rem, 1cqi, 1.2rem);
+    font-size:1rem;
     color: #ddd;
   
 }
 .event-time{
-    font-size: clamp(1.3rem, 1cqi, 1.6rem);
+    font-size: 1.3rem;
     line-height:4rem;
     font-weight: bold;
     color: #fff;
    
 }
 .event-text{
-    font-size: clamp(1.2rem, 1cqi, 1.4rem);
+    font-size: 1.2rem;
     line-height: 2rem;
 
     color: #fff;
@@ -343,40 +344,40 @@ margin: 3rem 0;
         left:50%;
         transform: translateX(-50%);
         width: 65%;
-    aspect-ratio: 3/4;
+    aspect-ratio: 5/4;
         row-gap: 1rem;
 
     }
     .event-popup-time{
-        width: clamp(5rem, 10cqi, 8rem);
-        font-size: clamp(1.5rem, 3cqi, 2.2rem);
+        width: 5rem;
+        font-size: 1.5rem;
     }
     .time-input input{
-        width: clamp(5rem, 10cqi, 8rem);
-        font-size: clamp(1.2rem, 2cqi, 1.6rem);
+        width: 5rem;
+        font-size: 1.2rem;
 
     }
     .event-popup textarea{
-        width: clamp(18rem, 35cqi, 28rem);
+        width: 18rem;
        
     }
     .event-popup textarea::placeholder{
-        font-size: clamp(1rem, 1.5cqi, 1.2rem);
+        font-size:1rem;
        
     }
     .event-popup-btn{
-         width: clamp(18rem, 35cqi, 28rem);
-        font-size: clamp(1.5rem, 3cqi, 2.2rem);
+         width:18rem;
+        font-size: 1.5rem;
 
     }
     .event-date{
-  font-size: clamp(1rem, 1.4cqi, 1.2rem);
+  font-size: 1rem;
     }
     .event-time{
-  font-size: clamp(1rem, 2cqi, 1.6rem);
+  font-size: 1rem;
     }
     .event-text{
-  font-size: clamp(1rem, 2.5cqi, 1.4rem);
+  font-size: 1rem;
     }
 }
 @media(max-width:500px) {
@@ -387,7 +388,7 @@ margin: 3rem 0;
         width: 100%;
     }
     .event-popup{
-        top:13%;
+        top:25%;
         width:80%;
     }
 .events{

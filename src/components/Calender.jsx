@@ -1,191 +1,267 @@
-// src/components/Calendar/Calendar.jsx
-import React, { useState, useEffect } from "react";
-import CalendarHeader from "./CalenderHeader";
-
-import DaysGrid from "./DaysGrid";
-import EventPopup from "./EventPopup";
-import EventList from "./EventList";
-import DayEvent from "./DayEvent";
+import React ,{useState, useEffect}from "react";
 import "./Calender.css";
-
-function Calendar() {
+function Calender() {
   const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
-  const monthsOfYear = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+  const monthsOfYear = ["January","February","March","April","May","June","July","August","September","October", "November", "December",
   ];
-
   const currentDate = new Date();
-  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-  const [selectedDate, setSelectedDate] = useState(currentDate.getDate());
-  const [showModal, setShowModal] = useState(false);
-  const [showAllEvent, setShowAllEvent] = useState(true);
-  const [showEventPopup, setShowEventPopup] = useState(false);
-  const [events, setEvents] = useState(() => {
-    const stored = localStorage.getItem("calendarEvents");
-    return stored ? JSON.parse(stored) : [];
+    const[events, setEvents] = useState(() => {
+  const stored = localStorage.getItem("calendarEvents");
+  return stored ? JSON.parse(stored) : [];});
+const [calendar, setCalendar] = useState({
+    month: currentDate.getMonth(),
+    year: currentDate.getFullYear(),
+    selectedDate: currentDate.getDate(),
   });
-
-  const [eventTime, setEventTime] = useState({ hours: "", minutes: "" });
-  const [eventTitle, setEventTitle] = useState("");
-  const [eventText, setEventText] = useState("");
-  const [editingEvent, setEditingEvent] = useState(null);
-
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-
-  useEffect(() => {
-    localStorage.setItem("calendarEvents", JSON.stringify(events));
-  }, [events]);
-
-  const prevMonth = () => {
-    setCurrentMonth((prev) => (prev === 0 ? 11 : prev - 1));
-    setCurrentYear((prev) => (currentMonth === 0 ? prev - 1 : prev));
-  };
-
-  const nextMonth = () => {
-    setCurrentMonth((prev) => (prev === 11 ? 0 : prev + 1));
-    setCurrentYear((prev) => (currentMonth === 11 ? prev + 1 : prev));
-  };
-
-  const isSameDay = (d1, d2) =>
-    d1.getDate() === d2.getDate() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getFullYear() === d2.getFullYear();
-
-  const handleDateClick = (day) => {
-    const clicked = new Date(currentYear, currentMonth, day);
-    const today = new Date();
-    if (clicked >= today || isSameDay(clicked, today)) {
-      setSelectedDate(day);
-      setShowEventPopup(true);
-      setShowModal(true);
-      setEventText("");
-      setEventTime({ hours: "", minutes: "" });
-      setEditingEvent(null);
-      setShowAllEvent(false);
-    }
-  };
-
-  const handleEventSubmit = () => {
-    if (!eventTitle.trim()) return alert("Event Title is required.");
-    const formattedDate = `${selectedDate}-${currentMonth + 1}-${currentYear}`;
-    const newEvent = {
-      date: formattedDate,
-      title: eventTitle,
-      text: eventText,
-      time: `${eventTime.hours.padStart(2, "0")}:${eventTime.minutes.padStart(
-        2,
-        "0"
-      )}`,
-    };
-
-    const updated =
-      editingEvent !== null
-        ? [
-            ...events.slice(0, editingEvent),
-            newEvent,
-            ...events.slice(editingEvent),
-          ]
-        : [...events, newEvent];
-
-    setEvents(updated);
-    setEventTitle("");
-    setEventText("");
-    setEventTime({ hours: "", minutes: "" });
-    setShowEventPopup(false);
-    setEditingEvent(null);
-  };
-
-  const handleEditEvent = (index) => {
-    const ev = events[index];
-    const [day, month, year] = ev.date.split("-").map(Number);
-    setEventTitle(ev.title);
-    setEventText(ev.text);
-    setEventTime({
-      hours: ev.time.split(":")[0],
-      minutes: ev.time.split(":")[1],
+   const daysInMonth = new Date(calendar.month, calendar.month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(calendar.year, calendar.month, 1).getDay();
+ 
+   const [ui, setUI] = useState({
+      showModal: false,
+      showAllEvent: true,
+      showEventPopup: false,
     });
-    setSelectedDate(day);
-    setCurrentMonth(month - 1);
-    setCurrentYear(year);
-    setEditingEvent(index);
-    setEvents((prev) => prev.filter((_, i) => i !== index));
-    setShowEventPopup(true);
+  
+  const [eventData, setEventData] = useState({
+    title: '',
+    text: '',
+    time: { hours: '', minutes: '' },
+    editingIndex: null,
+  });
+    const prevMonth=()=>{
+      setCalendar(prev => ({
+      ...prev,
+      month: prev.month === 0 ? 11 : prev.month - 1,
+      year: prev.month === 0 ? prev.year - 1 : prev.year
+    }));
+  
+     }
+    const nextMonth=()=>{
+         setCalendar(prev => ({
+      ...prev,
+      month: prev.month ===11 ? 0 : prev.month + 1,
+      year: prev.month === 11 ? prev.year + 1 : prev.year
+    }))}
+    const handleTimeChange=(e)=>{
+        const {name, value} =e.target
+
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.length > 2) val = val.slice(0, 2);
+   setEventData(prev => ({
+      ...prev,
+      time: { ...prev.time, [name]: value }
+    }));
+    }
+    const handleDateClick = (day) => {
+      const clickedDate = new Date(calendar.year, calendar.month, day);
+      const today = new Date();
+      if (clickedDate >= today || isSameday(clickedDate, today)) {
+        // setSelectedDate(day);
+setCalendar((prev)=>({...prev, selectedDate:day}))
+        setUI({ showModal: true, showAllEvent: false, showEventPopup: true });
+         setEventData({ title: '', text: '', time: { hours: '', minutes: '' }, editingIndex: null });
+       
+      }
+    };
+    const handleEventSubmit = () => {
+  if (!eventData.title.trim()) {
+    alert("Event Title is required.");
+    return;
+  }
+
+  const formattedDate = `${calendar.selectedDate}-${calendar.month + 1}-${calendar.year}`;
+
+  const newEvent = {
+    date: formattedDate,
+    title: eventData.title,
+    text: eventData.text,
+    time: `${(eventData.time.hours || '00').padStart(2, "0")}:${(eventData.time.minutes || '00').padStart(2, "0")}`
+
   };
 
-  const handleDeleteEvent = (index) => {
-    setEvents((prev) => prev.filter((_, i) => i !== index));
-  };
+  let updatedEvents;
 
+  if (eventData.editingEvent !== null) {
+    updatedEvents = [...events];
+    updatedEvents.splice(eventData.editingEvent, 0, newEvent);
+  } else {
+    updatedEvents = [...events, newEvent];
+  }
+
+  setEvents(updatedEvents);
+ 
+  setEventData({ title: '', text: '', time: { hours: '', minutes: '' }, editingIndex: null });
+  setUI({ showModal: true, showAllEvent: false, showEventPopup: false });
+};
+
+   
+    const isSameday=(day1, day2)=>{
+      return (day1.getDate() === day2.getDate() &&
+              day1.getMonth() === day2.getMonth() &&
+              day1.getFullYear() === day2.getFullYear());
+    }
+   const handleEditEvent = (index) => {
+  const event = events[index];
+  const [day, month, year] = event.date.split("-");
+   setEventData({
+      title: event.title,
+      text: event.text,
+      time: {
+        hours: event.time.split(":")[0],
+        minutes: event.time.split(":")[1],
+      },
+      editingIndex: index
+    });
+  // setSelectedDate(parseInt(day));
+  setCalendar({selectedDate:parseInt(day),month:parseInt(month), year:parseInt(year)})
+
+  const updatedEvents = [...events];
+  updatedEvents.splice(index, 1);
+  setEvents(updatedEvents);
+  setUI((prev)=>({...prev,showEventPopup:true }))
+  // setUI({ showModal: false, showAllEvent: true, showEventPopup: true });
+
+};
+
+    const handleDalete=(index)=>{
+ const updatedEvents = [...events];
+  updatedEvents.splice(index, 1);
+  setEvents(updatedEvents);
+    }
+ useEffect(() => {
+  localStorage.setItem("calendarEvents", JSON.stringify(events));
+}, [events]);
   return (
-    <div className="calendar-app">
-      <div className="calendar">
-        <CalendarHeader
-          month={monthsOfYear[currentMonth]}
-          year={currentYear}
-          prevMonth={prevMonth}
-          nextMonth={nextMonth}
-        />
+    <>
+      <div className="calender-app">
+        <div className="calender">
+          <h1 className="heading">Calender</h1>
+          <div className="navigate-date">
+            <h2 className="month">{monthsOfYear[calendar.month]}</h2>
+            <h2 className="year">{calendar.year}</h2>
+            <div className="buttons">
+              <i className="bx bx-chevron-left"onClick={prevMonth}></i>
+              <i className="bx bx-chevron-right" onClick={nextMonth}></i>
+            </div>
+          </div>
+          <div className="weekdays">
+            {daysOfWeek.map((day, index) => (
+              <span key={index}>{day}</span>
+            ))}
+          </div>
+          <div className="days">
+          {[...Array(firstDayOfMonth).keys()].map((_, index) => (
+            <span key={index} className="empty-day"></span> 
+            ))}
+                {[...Array(daysInMonth).keys()].map((day) => (
+                <span key={day + 1} className={day + 1 === currentDate.getDate() && calendar.month === currentDate.getMonth() && calendar.year === currentDate.getFullYear() ? "current-day" : ""} onClick={() => handleDateClick(day + 1)}>
+                    {day + 1}
+                </span>
+                ))}
+          </div>
+        </div>
+        <div className="events">
+            {ui.showEventPopup && <div className="event-popup">
+            <div className="time-input">
+              <div className="event-popup-time">Time</div>
+              <input
+                type="number"
+                name="hours"
+                min={0}
+                max={24}
+                placeholder="00"
 
-        <DaysGrid
-          daysOfWeek={daysOfWeek}
-          firstDayOfMonth={firstDayOfMonth}
-          daysInMonth={daysInMonth}
-          currentDate={currentDate}
-          currentMonth={currentMonth}
-          currentYear={currentYear}
-          onDateClick={handleDateClick}
-        />
-      </div>
+                className="hours"
+                value={eventData.time.hours}
+                onChange={(e) => {handleTimeChange(e);}}
 
-      <div className="events">
-        {showEventPopup && (
-          <EventPopup
-            eventTime={eventTime}
-            eventTitle={eventTitle}
-            eventText={eventText}
-            setEventTime={setEventTime}
-            setEventTitle={setEventTitle}
-            setEventText={setEventText}
-            onSubmit={handleEventSubmit}
-            onClose={() => setShowEventPopup(false)}
-            editing={editingEvent !== null}
-          />
-        )}
+              />
+              <input
+                type="number"
+                name="minutes"
+                min={0}
+                max={60}
+                className="minutes"
+                placeholder="00"
+                value={eventData.time.minutes}
+                onChange={(e) => handleTimeChange(e)}
+              />
+            </div>
+            <input className="event-title-input" type="text"value={eventData.title} name="event-title" placeholder="Enter Event Title" onChange={(e)=>
+              setEventData((prev)=>({...prev, title:e.target.value}))
+            } required/>
+            <textarea className="description"placeholder="Enter Event Text (Maximum 60 Characters)" value={eventData.text} onChange={(e) => {
+                if(e.target.value.length<=60)
+              setEventData((prev)=>({...prev, text:e.target.value}))
+            } }></textarea>
+            <button className="event-popup-btn" onClick={handleEventSubmit}>{eventData.editingEvent?"Update Event":"Add Event"}</button>
+            <button className="close-event-popup">
+              <i className="bx bx-x" onClick={() =>
+               setUI(prev => ({ ...prev, showEventPopup: false }))
+              }></i>
+            </button>
+          </div>}
+             {ui.showModal && (
+                <div className="modal-backdrop">
+  
+    <div className="modal-content">
+      <h2>Events on {calendar.selectedDate}-{calendar.month + 1}-{calendar.year}</h2>
+      {events.filter(event => event.date === `${calendar.selectedDate}-${calendar.month + 1}-${calendar.year}`).length ? (
+        <ul >
+          {events
+            .filter(event => event.date === `${calendar.selectedDate}-${calendar.month + 1}-${calendar.year}`)
+            .map((event, idx) => (
+              <li key={idx} className="event" >
+              <div className="event-date-wrapper">  
+   <div className="event-time">{event.time}</div>
+     </div>
+<div className="event-text">
+                <div className=" event-heading">{event.title}</div>
+                 <div className="description">{event.text}</div>
+                </div>
+              
+              </li>
+          ))}
+        </ul>
 
-        {showModal && (
-          <DayEvent
-            date={`${selectedDate}-${currentMonth + 1}-${currentYear}`}
-            events={events}
-            onClose={() => {
-              setShowModal(false);
-              setShowAllEvent(true);
-            }}
-          />
-        )}
-
-        {showAllEvent && (
-          <EventList
-            events={events}
-            onEdit={handleEditEvent}
-            onDelete={handleDeleteEvent}
-          />
-        )}
-      </div>
+      ) : (
+        <p className="event no-event">No events for this day</p>
+      )} 
+        <i className='button bx bx-x' onClick={()=>setUI({ showModal: false, showAllEvent: true, showEventPopup: false })}></i>
+   
     </div>
+  
+  </div>
+)}
+          {ui.showAllEvent &&
+          <div>
+          
+             {events.map((event,index)=>(
+
+<div className="event" key={index}>
+   
+            <div className="event-date-wrapper">
+              <div className="event-date">{event.date}</div>
+              <div className="event-time">{event.time}</div>
+            </div>
+            <div className="event-text text">
+                <div className="event-heading">{event.title}</div>
+            <div className="description">{event.text}</div></div>
+            
+            <div className="event-buttons">
+              <i className="bx bxs-edit-alt" onClick={()=>handleEditEvent(index)}></i>
+              <i className="bx bx-x" onClick={()=>handleDalete(index)} ></i>
+            </div>
+          </div>
+            ))}
+            </div>
+          }
+       
+          
+        </div>
+      </div>
+    </>
   );
 }
 
-export default Calendar;
+export default Calender;
