@@ -74,7 +74,7 @@ margin: 3rem 0;
 }
 .weekdays span{
    width: calc(100% / 7);
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
     color: #78879e;
@@ -88,7 +88,7 @@ margin: 3rem 0;
    
 }
 .days span{
-    font-size: 1rem;
+    font-size: 1.2rem;
     width: calc(100% / 7);
     aspect-ratio: 1;
     display: flex;
@@ -251,6 +251,7 @@ margin: 3rem 0;
     align-items: center;
     margin-bottom: 1.9rem;
     position: relative;
+    font-size: 1.3rem;
 
 }
 .event-date-wrapper{
@@ -261,21 +262,19 @@ margin: 3rem 0;
     border-right: 0.1rem solid rgba(255,255,255,0.5);
 }
 .event-date{
-    font-size:1rem;
-    color: #ddd;
+    font-size:1.2rem;
+    color: #eeecec;
   
 }
 .event-time{
-    font-size: 1.3rem;
+    font-size: 1,3rem;
     line-height:4rem;
     font-weight: bold;
     color: #fff;
    
 }
 .event-text{
-    font-size: 1.2rem;
     line-height: 2rem;
-
     color: #fff;
     padding: 0 3rem 0 1rem;       
     width: 75%;
@@ -305,7 +304,7 @@ margin: 3rem 0;
 .no-event{
      padding: 0 10px;
      font-size: medium ;
-
+  color: #fff;
 }
 .button{
      position: absolute;
@@ -337,6 +336,7 @@ margin: 3rem 0;
     .events{
         width: 80%;
         margin: auto;
+        font-size: 1.3rem;
     }
     .event-popup{
         top:18%;
